@@ -1,12 +1,12 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+
 
 class Node
 {
 public:
     int val;
     Node *next;
-
     Node(int val)
     {
         this->val = val;
@@ -14,102 +14,93 @@ public:
     }
 };
 
-void insert_at_tail(Node* & head , Node* & tail , int n)
+
+void insert_at_tail(Node *&head, int v)
 {
-    Node* newNode = new Node(n);
+    Node *newNode = new Node(v);
     if (head == NULL)
     {
         head = newNode;
-        tail = newNode;
-        return;
-    }
-    
-    tail->next = newNode;
-    cout << endl <<" inseted at tail" << endl << endl;
-}
-
-void insert_at_possition(Node* & head,Node* & tail ,int val ,int pos)
-{
-    Node* newNode = new Node(val);
-    if (head == NULL)
-    {
-        head =  newNode;
-        tail = newNode;
+        cout << endl
+             << "Inserted at head" << endl
+             << endl;
         return;
     }
 
-    Node* temp = head;
-    for (int i = 1; i < pos - 1; i++)
+    Node *tmp = head;
+    while (tmp->next != NULL)
     {
-        temp = temp->next;
+        tmp = tmp->next;
     }
-
-    newNode->next = temp->next;
-    temp->next = newNode;
+    // tmp ekhon last node e
+    tmp->next = newNode;
+    cout << endl
+         << "Inserted at tail" << endl
+         << endl;
 }
-
-void print_linked_list(Node* head)
+void print_linked_list(Node *head)
 {
-    Node* temp = head ;
-    cout << endl << "my linked list : ";
-    while (temp != NULL)
+    cout << endl;
+    cout << "Your Linked List: ";
+    Node *tmp = head;
+    while (tmp != NULL)
     {
-        cout << temp->val << " " ;
-        temp = temp->next;
+        cout << tmp->val << " ";
+        tmp = tmp->next;
     }
-    cout << endl << endl;
-    
+    cout << endl
+         << endl;
 }
-
+void insert_at_position(Node *head, int pos, int v)
+{
+    Node *newNode = new Node(v);
+    Node *tmp = head;
+    for (int i = 1; i <= pos - 1; i++)
+    {
+        tmp = tmp->next;
+    }
+    newNode->next = tmp->next;
+    tmp->next = newNode;
+    cout << endl
+         << endl
+         << "Inserted at position " << pos << endl
+         << endl;
+}
 int main()
 {
-    Node* head = NULL;
-    Node* tail = NULL;
-
+    Node *head = NULL;
     while (true)
     {
-        cout << "command 1 : insert at tail" << endl;
-        cout << "command 2 : insert at possition " << endl;
-        cout << "command 3 : print linked list " << endl ;
-        cout << "command 4 : terminate the programe " << endl;
-        cout << "please input command : ";
-
-        int command ;
-        cin >> command;
-
-        if (command == 1)
+        cout << "Option 1: Insert at Tail" << endl;
+        cout << "Option 2: Print Linked List" << endl;
+        cout << "Option 3: Insert at any Position" << endl;
+        cout << "Option 4: Terminate" << endl;
+        int op;
+        cin >> op;
+        if (op == 1)
         {
-            int val ;
-            cout << "please input value : ";
-            cin >> val;
-            insert_at_tail(head,tail, val);
+            cout << "Please enter value: ";
+            int v;
+            cin >> v;
+            insert_at_tail(head, v);
         }
-        if (command == 3)
-        {
-            int val;
-            cout << "please input value: ";
-            cin >> val;
-            
-            int pos;
-            cout << "please input possition : ";
-            cin >> pos;
-
-            insert_at_possition(head, tail , val , pos);
-        }
-        
-        if (command == 3)
+        else if (op == 2)
         {
             print_linked_list(head);
         }
-        
-        if (command == 4)
+        else if (op == 3)
+        {
+            int pos, v;
+            cout << "Enter position: ";
+            cin >> pos;
+            cout << "Enter value: ";
+            cin >> v;
+            insert_at_position(head, pos, v);
+        }
+        else if (op == 4)
         {
             break;
         }
-        
-        
     }
-    
-    
     return 0;
 }
